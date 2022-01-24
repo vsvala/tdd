@@ -9,7 +9,10 @@ describe("Falling blocks", () => {
   });
 
   it("The board starts empty", () => {
-    expect(board.toString()).to.equalShape(`...\n...\n...\n`
+    expect(board.toString()).to.equalShape(
+      `...
+       ...
+       ...`
     );
   });
 
