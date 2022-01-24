@@ -1,4 +1,4 @@
-# [TDD MOOC](https://tdd.mooc.fi): Tetris
+# Test Driving development course [TDD MOOC](https://tdd.mooc.fi): Tetris
 
 This exercise are implementing a Tetris game using Test-Driven Development (TDD).
 
