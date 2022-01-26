@@ -1,7 +1,7 @@
 export class Board {
   width;
   height;
-   stationary=[[],[]]
+  stationary=[[],[]]
 
   fallingBlock;
   block;
@@ -58,7 +58,7 @@ getBlockAt(row, col){
   }
 
   hasFalling(){
-  return this.fallingBlock!=null;
+  return Boolean(this.fallingBlock);  //this.fallingBlock!=null;
   }
 
   drop(block) {
@@ -75,24 +75,27 @@ isInsideBoardLimits(nextRow){
   return nextRow<this.height
 }
 
-isTileEmpty(col, row){
-  return this.stationary[col][row] === this.EMPTY;
+isTileEmpty(row, col){
+  return this.stationary[row][col] === this.EMPTY;
 }
 
 tick(){
   const nextRow=this.fallingBlockRow +1;
 
-  if(this.isInsideBoardLimits(nextRow) && this.isTileEmpty(this.fallingBlockCol, nextRow)){
+  if(this.isInsideBoardLimits(nextRow) && this.isTileEmpty(nextRow, this.fallingBlockCol)){
 
     this.fallingBlockRow=nextRow;
   
-  } else {
-    //this.fallingBlockRow==this.i-1
-    this.stationary[this.fallingBlockRow][this.fallingBlockCol]=this.fallingBlock.getColor();
-    this.fallingBlock=null
-    this.fallingBlockRow=0;
+  } 
+   else {
+    this.stopFalling();
   }
+
 
 }
 
+stopFalling(){
+  this.stationary[this.fallingBlockRow][this.fallingBlockCol]=this.fallingBlock.getColor()
+  this.fallingBlock=null
+}
 }
