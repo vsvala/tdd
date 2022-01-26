@@ -1,11 +1,14 @@
 export class Board {
   width;
   height;
-  falling;
+   stationary=[[],[]]
+
+  fallingBlock;
   block;
-  fallingBlockRow=0;
+  fallingBlockRow;
+  fallingBlockCol;
   EMPTY='.'
-  stationary=[[],[]]
+ 
 
   constructor(width, height) {
     this.width = width;
@@ -27,8 +30,10 @@ getEmptyBoard(rows, cols) {
     let s = "";
     for (let i = 0; i < this.width; i++) {
       for (let j = 0; j < this.height; j++) {
-        s += this.hasFallingAt(i, j)? this.falling.getColor() : this.stationary[i][j] //this.EMPTY;
-        //if(i===0 && j==1 && this.block !=null){
+       // s += this.hasFallingAt(i, j)? this.falling.getColor() : this.stationary[i][j] //this.EMPTY;
+      s += this.getBlockAt(i,j)
+
+       //if(i===0 && j==1 && this.block !=null){
           // console.log("yyyyykss",i, x.color)
           // s += this.block.color;
          }
@@ -37,14 +42,23 @@ getEmptyBoard(rows, cols) {
     //console.log(s)
     return s;
   }
+  
+getBlockAt(row, col){
+  if(this.hasFallingAt(row,col)){
+    return this.fallingBlock.getColor()
+  }
+  else{
+   return this.stationary[row][col] 
+  }
+}
 
   hasFallingAt(width, height){
     //console.log("tää",this.hasFalling() && width==this.fallingBlockRow)
-    return this.hasFalling() && width==this.fallingBlockRow && height==1;
+    return this.hasFalling() && width==this.fallingBlockRow && height==this.fallingBlockCol;
   }
 
   hasFalling(){
-  return this.falling!=null;
+  return this.fallingBlock!=null;
   }
 
   drop(block) {
@@ -52,18 +66,33 @@ getEmptyBoard(rows, cols) {
  if(this.hasFalling()){
   throw 'already falling';
  } 
-   this.falling=block;
+   this.fallingBlock=block;
+   this.fallingBlockRow=0
+   this.fallingBlockCol=1
  }
 
+isInsideBoardLimits(nextRow){
+  return nextRow<this.height
+}
+
+isTileEmpty(col, row){
+  return this.stationary[col][row] === this.EMPTY;
+}
 
 tick(){
-  if(this.fallingBlockRow==this.i-1){
-  this.falling=null
-  }
-  else{
-    this.fallingBlockRow++;
+  const nextRow=this.fallingBlockRow +1;
+
+  if(this.isInsideBoardLimits(nextRow) && this.isTileEmpty(this.fallingBlockCol, nextRow)){
+
+    this.fallingBlockRow=nextRow;
   
+  } else {
+    //this.fallingBlockRow==this.i-1
+    this.stationary[this.fallingBlockRow][this.fallingBlockCol]=this.fallingBlock.getColor();
+    this.fallingBlock=null
+    this.fallingBlockRow=0;
   }
+
 }
 
 }
