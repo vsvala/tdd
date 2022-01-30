@@ -17,7 +17,7 @@ describe("Rotating 3x3 shape", () => {
     );
   });
 
-  xit("can be rotated right/clockwise", () => {
+  it("can be rotated right/clockwise", () => {
     expect(shape.rotateRight().toString()).to.equalShape(
       `GDA
        HEB
@@ -25,7 +25,7 @@ describe("Rotating 3x3 shape", () => {
     );
   });
 
-  xit("can be rotated left/counter-clockwise", () => {
+  it("can be rotated left/counter-clockwise", () => {
     expect(shape.rotateLeft().toString()).to.equalShape(
       `CFI
        BEH
