@@ -9,9 +9,9 @@ export class RotatingShape{
         
         const row = shape.split("\n")
 
-        console.log("blocks",this.blocks)
-        console.log("shape",shape)         
-        console.log("size", row.length)
+        //console.log("blocks",this.blocks)
+        //console.log("shape",shape)         
+        //console.log("size", row.length)
         this.size = row.length
 
         //console.log("trimmed",rows.map((row)=> row.trim().split("")));
@@ -25,9 +25,9 @@ export class RotatingShape{
 
         
     toString(){
-        console.log("blocks", this.blocks)
+       // console.log("blocks", this.blocks)
         const rows = this.blocks.map((row)=> row.join(""));
-        console.log("joined",rows.join("\n")+"\n")
+        console.log("joined\n",rows.join("\n")+"\n")
 
         return rows.join("\n") + "\n";
     }
@@ -35,7 +35,7 @@ export class RotatingShape{
 rotateRight(){
    
      const size = this.blocks.length    
-     console.log("size is",size)
+     //console.log("size is",size)
      const createRow = ()=> Array.from(new Array(size), () => "-" );
   
      const rotatedShape = Array.from(new Array(size),createRow);
@@ -58,7 +58,7 @@ rotateRight(){
 
           }
       }
-    console.log("rotated after",rotatedShape)
+    //console.log("rotated after",rotatedShape)
       return new RotatingShape(rotatedShape);
       }
 

@@ -2,7 +2,6 @@ export class Board {
   width;
   height;
   stationary=[[],[]]
-
   fallingBlock;
   block;
   fallingBlockRow;
@@ -22,7 +21,7 @@ getEmptyBoard(rows, cols) {
   }
 
   toString() {
-    console.log("stat",this.stationary)
+   // console.log("stat",this.stationary)
     let s = "";
     for (let i = 0; i < this.width; i++) {
       for (let j = 0; j < this.height; j++) {
@@ -79,9 +78,11 @@ FallOneRow(){
 fallingHitsBottom(){
   return this.fallingBlockRow === this.height-1
   }
+
 fallingHitsStationary(){
   return this.stationary[this.fallingBlockRow+1][this.fallingBlockCol] != this.EMPTY;
   }
+
 getBlockAt(row, col){
   if(this.hasFallingAt(row,col)){
     return this.fallingBlock.getColor()
@@ -90,6 +91,30 @@ getBlockAt(row, col){
      return this.stationary[row][col] 
     }
   }
+
+cellAt(row, col){
+  const cell = fallinCellAt(row, col);
+  if (cell != EMPTY){
+    return cell;
+  }
+  return this.stationary[row][col]
+}
+
+fallinCellAt(row,col){
+  if (!hasFalling()) {
+    return this.EMPTY;
+  }
+  if (row >= this.fallingBlockRow 
+  && row  < this.fallingBlock.rows() + this.fallingBlockRow 
+  && col >= this.fallingBlockCol 
+  && col < this.fallingBlock.columns() + this.fallingBlockCol){
+      return this.fallingBlock.cellAt(row -this.fallingBlockRow, this.fallingBlockCol);
+  }
+
+else{
+  return this.EMPTY;
+}
+}
   
 hasFallingAt(width, height){
   //console.log("tää",this.hasFalling() && width==this.fallingBlockRow)

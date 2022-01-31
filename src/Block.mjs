@@ -7,5 +7,14 @@ export class Block {
   getColor(){
      return this.color 
   }
+  rows(){
+    return 1
+ }
 
+ columns(){
+  return 1
+}
+cellAt(row, col){
+  return color
+}
 }
