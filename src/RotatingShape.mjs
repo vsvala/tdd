@@ -1,6 +1,7 @@
 export class RotatingShape{
   blocks;
   size;
+  
 
     constructor(shape) {
       
@@ -27,7 +28,7 @@ export class RotatingShape{
     toString(){
        // console.log("blocks", this.blocks)
         const rows = this.blocks.map((row)=> row.join(""));
-        console.log("joined\n",rows.join("\n")+"\n")
+       // console.log("joined\n",rows.join("\n")+"\n")
 
         return rows.join("\n") + "\n";
     }
@@ -37,7 +38,6 @@ rotateRight(){
      const size = this.blocks.length    
      //console.log("size is",size)
      const createRow = ()=> Array.from(new Array(size), () => "-" );
-  
      const rotatedShape = Array.from(new Array(size),createRow);
 
       //console.log("rotated start",rotatedShape)
