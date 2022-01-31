@@ -16,15 +16,16 @@ export class Tetromino{
    .....`,
    2
   );
-  //  static O_SHAPE = new RotatingShape(
-  //  `.OO
-  //   .OO
-  //   ...`
-  //  );
-  // static  S_SHAPE =  new RotatingShape(`....\n.SS.\nSS..\n....\n`, "S"),
-  // static  Z_SHAPE = new RotatingShape(`....\nZZ..\n.ZZ.\n....\n`, "Z"),
-  // static L_SHAPE = new RotatingShape(`....\nLLL.\nL...\n....\n`, "L"),
-  // static J_SHAPE = new RotatingShape(`....\nJJJ.\n..J.\n....\n`, "J")
+   static O_SHAPE = new Tetromino(
+   `.OO
+    .OO
+    ...`,
+    1
+   );
+  // static  S_SHAPE =  new RotatingShape(`....\n.SS.\nSS..\n....\n`, ),
+  // static  Z_SHAPE = new RotatingShape(`....\nZZ..\n.ZZ.\n....\n`, ),
+  // static L_SHAPE = new RotatingShape(`....\nLLL.\nL...\n....\n`, ),
+  // static J_SHAPE = new RotatingShape(`....\nJJJ.\n..J.\n....\n`, )
   shape
   orientationCount;
   orientations;
@@ -51,7 +52,7 @@ export class Tetromino{
          if (newIndex >= this.orientationCount) {
            newIndex = 0
          }
-     console.log("rotateright orient ja index",this.orientationCount,newIndex);
+     //console.log("rotateright orient ja index",this.orientationCount,newIndex);
       return new Tetromino(this.shape, this.orientationCount, newIndex);
     }
 
