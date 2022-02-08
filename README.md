@@ -9,4 +9,3 @@ programming language as you go. There also exists an
 older [Java-based predecessor](https://github.com/luontola/tdd-tetris-tutorial) of this exercise.
 
 Refer to [the course material](https://tdd.mooc.fi) to learn more about TDD.
-

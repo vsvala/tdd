@@ -47,7 +47,6 @@ describe("Falling blocks", () => {
     });
   });
 
-
   describe("When a block reaches the bottom", () => {
     beforeEach(() => {
       board.drop(new Block("X"));

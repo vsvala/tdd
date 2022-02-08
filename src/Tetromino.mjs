@@ -1,75 +1,88 @@
-import { RotatingShape } from "./RotatingShape.mjs"
+import { RotatingShape } from "./RotatingShape.mjs";
 
-export class Tetromino{
-
+export class Tetromino {
   static T_SHAPE = new Tetromino(
-   `.T.
+    `.T.
     TTT
     ...`,
     4
   );
- static I_SHAPE = new Tetromino(
-  `.....
+  static I_SHAPE = new Tetromino(
+    `.....
    .....
    IIII.
    .....
    .....`,
-   2
+    2
   );
-   static O_SHAPE = new Tetromino(
-   `.OO
+  static O_SHAPE = new Tetromino(
+    `.OO
     .OO
     ...`,
     1
-   );
+  );
   // static  S_SHAPE =  new RotatingShape(`....\n.SS.\nSS..\n....\n`, ),
   // static  Z_SHAPE = new RotatingShape(`....\nZZ..\n.ZZ.\n....\n`, ),
   // static L_SHAPE = new RotatingShape(`....\nLLL.\nL...\n....\n`, ),
   // static J_SHAPE = new RotatingShape(`....\nJJJ.\n..J.\n....\n`, )
-  shape
+  shape;
   orientationCount;
   orientations;
   index;
 
-  constructor(shape, orientationCount, index=0) {
+  constructor(shape, orientationCount, index = 0) {
     //console.log("shapewwwwwwwwwwwwwww",shape)
-    this.shape=shape;
-    this.orientationCount=orientationCount;
-    this.index=index;
-    const newshape = new RotatingShape(shape)
+    this.shape = shape;
+    this.orientationCount = orientationCount;
+    this.index = index;
+    const newshape = new RotatingShape(shape);
     //console.log("newshape",newshape)
-    this.orientations=[
-        newshape,
-        newshape.rotateRight(),
-        newshape.rotateRight().rotateRight(),
-        newshape.rotateRight().rotateRight().rotateRight()
-      ].slice(0, orientationCount)
-    
+    this.orientations = [
+      newshape,
+      newshape.rotateRight(),
+      newshape.rotateRight().rotateRight(),
+      newshape.rotateRight().rotateRight().rotateRight(),
+    ].slice(0, orientationCount);
   }
- 
-    rotateRight() {
-         let newIndex = this.index + 1
-         if (newIndex >= this.orientationCount) {
-           newIndex = 0
-         }
-     //console.log("rotateright orient ja index",this.orientationCount,newIndex);
-      return new Tetromino(this.shape, this.orientationCount, newIndex);
-    }
 
-    rotateLeft() {
-     let newIndex = this.index -1
-      if (newIndex < 0) {
-        newIndex = this.orientationCount-1
-     }
-     //console.log("rotateleft orient ja index",this.orientationCount,newIndex);
-     //console.log(new Tetromino(this.shape, this.orientationCount, newIndex));
-    return new Tetromino(this.shape, this.orientationCount, newIndex)
+  rotateRight() {
+    let newIndex = this.index + 1;
+    if (newIndex >= this.orientationCount) {
+      newIndex = 0;
+    }
+    //console.log("rotateright orient ja index",this.orientationCount,newIndex);
+    return new Tetromino(this.shape, this.orientationCount, newIndex);
+  }
+
+  rotateLeft() {
+    let newIndex = this.index - 1;
+    if (newIndex < 0) {
+      newIndex = this.orientationCount - 1;
+    }
+    //console.log("rotateleft orient ja index",this.orientationCount,newIndex);
+    //console.log(new Tetromino(this.shape, this.orientationCount, newIndex));
+    return new Tetromino(this.shape, this.orientationCount, newIndex);
   }
 
   toString() {
     //console.log(this.index,"thiiiiiiis",this.orientations[this.index])
-    return this.orientations[this.index].toString()
-}
-
+    return this.orientations[this.index].toString();
   }
 
+
+  columns(){
+   // console.log("tetrcol",this.orientations[this.index].size)
+    return this.orientations[this.index].size // columns()?
+  }
+  rows(){
+    return this.orientations[this.index].rows(); //?
+  
+  } 
+  //cellAt
+   cellAt(row, col) {
+ 
+   return this.orientations[this.index].blockscellAt(row,col)//?
+  }
+
+
+}
