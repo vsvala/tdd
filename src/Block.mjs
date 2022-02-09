@@ -2,12 +2,13 @@ export class Block {
   color;
   row;
   col;
+ 
 
   constructor(color) {
     this.color = color;
     this.row = 0;
     this.col = 0;
-
+ 
   }
   getColor() {
     return this.color;

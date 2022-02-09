@@ -23,7 +23,7 @@ export class Board {
     for (let i = 0; i < this.height; i++) {
       for (let j = 0; j < this.width; j++) {
       console.log("i,j", i,j)
-        s += this.getCellAt(i, j); 
+        s += this.cellAt(i, j);  //getCellAt
       }
       s += "\n";
     }
@@ -31,25 +31,12 @@ export class Board {
     return s;
   }
 
-  hasFalling() {
-    return Boolean(this.fallingBlock); //this.fallingBlock!=null;
-  }
-
   drop(block) {
     if (this.hasFalling()) {
       throw new Error( "already falling");
     }
-    this.fallingBlock = block;
-    //startFalling(Block); !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    this.startFalling(block);
     console.log("fallingbloc", block)
-    this.fallingBlockRow = 0;
-    const blockColumns = block.columns() //1  ///3
-    console.log(this.width,"boardwidth and columns", blockColumns)
-   // this.fallingBlockCol = Math.floor((this.width - blockColumns)/2) //columns()/2-block.columns()/2);
-   // this.fallingBlockCol = Math.floor(this.width/2) //columns()/2-block.columns()/2);
-    const center = Math.floor((this.width/2)-(blockColumns/2))
-    this.fallingBlockCol = center
-   console.log( "center", this.fallingBlockCol)
   }
 
 
@@ -62,6 +49,22 @@ export class Board {
     } else {
       this.FallOneRow();
     }
+  }
+
+  startFalling(block) {
+    this.fallingBlock=block;
+    this.fallingBlockRow = 0;  
+    console.log(this.width,"boardwidth and columns", block.columns() )
+    const center = Math.floor((this.width/2)-(block.columns()/2))
+    this.fallingBlockCol = center
+   console.log( "center", this.fallingBlockCol)
+   // this.fallingBlockCol = Math.floor((this.width - blockColumns)/2) //columns()/2-block.columns()/2);
+   // this.fallingBlockCol = Math.floor(this.width/2) //columns()/2-block.columns()/2);
+  }
+
+
+  hasFalling() {
+    return Boolean(this.fallingBlock); //this.fallingBlock!=null;
   }
 
   stopFalling() {
@@ -88,16 +91,50 @@ export class Board {
     );
   }
 
-  //cellAt
+  //cellAt PRINTING
   getCellAt(row, col) {
     if (this.hasFallingAt(row, col)) { // 0,0? ANTAA ROW JA col
-      console.log("hasfallingatgetcolor",this.fallingBlock.cellAt(row,col))
-      return this.fallingBlock.cellAt(0,0); //MIKÄ MERKKI  (0,0)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!row,col
+     // console.log("hasfallingatgetcolor",this.fallingBlock.cellAt(row,col))
+      return this.fallingBlock.cellAt(0,0); //MIKÄ MERKKI row,col
     } else {
-      console.log("ei oo fallingat rowcol",row,col,"else row,col", this.board[row][col])
-      return this.board[row][col];  //ePALAUTTAA PELKKÄÄ TYHJÄÄ PISTETTÄ
+     // console.log("ei oo fallingat rowcol",row,col,"else row,col", this.board[row][col])
+      return this.board[row][col];  //TYHJÄÄ PISTETTÄ
     }
   }
+
+  cellAt(row, col) {
+    const cell = this.fallingCellAt(row,col)
+    if (cell != this.EMPTY){
+      return cell;
+    }
+    return this.board[row][col];  //TYHJÄÄ PISTETTÄ 
+  }
+
+
+  fallingCellAt(width, height) {
+    if(!this.hasFalling){
+      return this.EMPTY
+    }
+    const tetrominoRow = width-this.fallingBlockRow
+    const tetrominoCol = height-this.fallingBlockCol
+    if (tetrominoRow >= 0
+      && tetrominoRow < this.fallingBlock.rows()
+      && tetrominoCol >= 0
+      && tetrominoCol < this.fallingBlock.columns()
+      ){
+      return this.fallingBlock.cellAt(tetrominoRow,tetrominoCol);
+    } else {
+      return this.EMPTY;
+      }
+    }
+
+    //TRUE/FALSE
+  hasFallingAt(width, height) {
+    return this.hasFalling() &&
+      width == this.fallingBlockRow &&
+       height == this.fallingBlockCol
+  }
+
 
   // cellAt(row, col) {
   //   const cell = fallinCellAt(row, col);
@@ -126,18 +163,7 @@ export class Board {
   //   }
   // }
 
-  hasFallingAt(width, height) {
-   // console.log("tää",this.hasFalling() && width==this.fallingBlockRow)
-    if(!this.hasFalling()){
-    //  console.log("ei ole falling")
-      return false;
-    }
-    return (
-      this.hasFalling() &&
-      width == this.fallingBlockRow &&
-      height == this.fallingBlockCol
-    );
-  }
+  
 
   //????
   isWithnBoardLimits(nextRow) {
