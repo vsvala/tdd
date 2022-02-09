@@ -37,7 +37,7 @@ export class RotatingShape {
     //console.log("rotated start",rotatedShape)
     // console.log("blocks to rotate",this.blocks)
 
-    /*    rotatedShape[0][2]=this.blocks[0][0];
+    /* rotatedShape[0][2]=this.blocks[0][0];
       rotatedShape[1][2]=this.blocks[0][1];
       rotatedShape[2][2]=this.blocks[0][2];
       rotatedShape[0][1]=this.blocks[1][0];
@@ -57,6 +57,23 @@ export class RotatingShape {
 
   rotateLeft() {
     return this.rotateRight().rotateRight().rotateRight();
+  }
+
+  rows(){
+  return this.blocks.length;
+}
+
+  columns(){
+    return this.blocks[0].length;
+  }
+
+  cellAt(row, col){
+    console.log("rotating Shape cellAT row,col",row,col)
+
+    console.log("this.blockbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",this.blocks[0][1])
+    console.log("this.blockbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",this.blocks[row][col])
+
+    return this.blocks[row][col]
   }
 
   getblockCoordinates() {

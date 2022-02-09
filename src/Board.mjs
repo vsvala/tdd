@@ -1,9 +1,8 @@
 export class Board {
   width;
   height;
-  tiles = [[], []];
+  board = [[], []];
   fallingBlock;
-  block;
   fallingBlockRow;
   fallingBlockCol;
   EMPTY = ".";
@@ -11,8 +10,7 @@ export class Board {
   constructor(width, height) {
     this.width = width;
     this.height = height;
-    this.tiles = this.getEmptyBoard(width, height);
-    //console.log("this tiles",this.tiles)
+    this.board = this.getEmptyBoard(width, height); //alustaa tyhjän laudan
   }
 
   getEmptyBoard(rows, cols) {
@@ -21,19 +19,15 @@ export class Board {
   }
 
   toString() {
-    // console.log("stat",this.tiles)
     let s = "";
-    for (let i = 0; i < this.width; i++) {
-      for (let j = 0; j < this.height; j++) {
-        // s += this.hasFallingAt(i, j)? this.falling.getColor() : this.tiles[i][j] //this.EMPTY;
-        s += this.getBlockAt(i, j);
-        //if(i===0 && j==1 && this.block !=null){
-        // console.log("yyyyykss",i, x.color)
-        // s += this.block.color;
+    for (let i = 0; i < this.height; i++) {
+      for (let j = 0; j < this.width; j++) {
+      console.log("i,j", i,j)
+        s += this.getCellAt(i, j); 
       }
       s += "\n";
     }
-    //console.log(s)
+   console.log(s)
     return s;
   }
 
@@ -43,15 +37,19 @@ export class Board {
 
   drop(block) {
     if (this.hasFalling()) {
-      throw "already falling";
+      throw new Error( "already falling");
     }
-    //console.log("blockkkkk",block.columns())
     this.fallingBlock = block;
+    //startFalling(Block); !!!!!!!!!!!!!!!!!!!!!!!!!!!!
     console.log("fallingbloc", block)
     this.fallingBlockRow = 0;
-    const blockColumns = block.columns()
-    console.log("bbbb",blockColumns)
-    this.fallingBlockCol = Math.floor((this.width - blockColumns)/2) //columns()/2-block.columns()/2);
+    const blockColumns = block.columns() //1  ///3
+    console.log(this.width,"boardwidth and columns", blockColumns)
+   // this.fallingBlockCol = Math.floor((this.width - blockColumns)/2) //columns()/2-block.columns()/2);
+   // this.fallingBlockCol = Math.floor(this.width/2) //columns()/2-block.columns()/2);
+    const center = Math.floor((this.width/2)-(blockColumns/2))
+    this.fallingBlockCol = center
+   console.log( "center", this.fallingBlockCol)
   }
 
 
@@ -67,7 +65,7 @@ export class Board {
   }
 
   stopFalling() {
-    this.tiles[this.fallingBlockRow][this.fallingBlockCol] = this.fallingBlock.getColor();
+    this.board[this.fallingBlockRow][this.fallingBlockCol] = this.fallingBlock.cellAt(0,0);
     this.fallingBlock = null;
   }
   FallOneRow() {
@@ -86,18 +84,18 @@ export class Board {
   //isTileEmpty 
   fallingHitsAnotherBlock() {
     return (
-      this.tiles[this.fallingBlockRow + 1][this.fallingBlockCol] != this.EMPTY
+      this.board[this.fallingBlockRow + 1][this.fallingBlockCol] != this.EMPTY
     );
   }
 
   //cellAt
-  getBlockAt(row, col) {
-    if (this.hasFallingAt(row, col)) { // 0,0?
-     // console.log("getcolor",this.fallingBlock.getColor())
-      return this.fallingBlock.color;
+  getCellAt(row, col) {
+    if (this.hasFallingAt(row, col)) { // 0,0? ANTAA ROW JA col
+      console.log("hasfallingatgetcolor",this.fallingBlock.cellAt(row,col))
+      return this.fallingBlock.cellAt(0,0); //MIKÄ MERKKI  (0,0)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!row,col
     } else {
-      console.log("else",this.tiles[row][col])
-      return this.tiles[row][col];
+      console.log("ei oo fallingat rowcol",row,col,"else row,col", this.board[row][col])
+      return this.board[row][col];  //ePALAUTTAA PELKKÄÄ TYHJÄÄ PISTETTÄ
     }
   }
 
@@ -129,8 +127,9 @@ export class Board {
   // }
 
   hasFallingAt(width, height) {
-    //console.log("tää",this.hasFalling() && width==this.fallingBlockRow)
+   // console.log("tää",this.hasFalling() && width==this.fallingBlockRow)
     if(!this.hasFalling()){
+    //  console.log("ei ole falling")
       return false;
     }
     return (
@@ -163,7 +162,7 @@ export class Board {
       x:coordinate.x= this.blockLefColumn,
       y: coordinate.y = blockTopRow,
     }))
-    return boarcoords.every(({x,y}) => this.tiles[x]?.[y]===EMPTY);
+    return boarcoords.every(({x,y}) => this.board[x]?.[y]===EMPTY);
   }
 
 }

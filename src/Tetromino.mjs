@@ -29,6 +29,7 @@ export class Tetromino {
   orientationCount;
   orientations;
   index;
+  col;
 
   constructor(shape, orientationCount, index = 0) {
     //console.log("shapewwwwwwwwwwwwwww",shape)
@@ -71,17 +72,19 @@ export class Tetromino {
 
 
   columns(){
-   // console.log("tetrcol",this.orientations[this.index].size)
-    return this.orientations[this.index].size // columns()?
+  console.log("tetrcol",this.orientations[this.index])
+    return this.orientations[this.index].columns() // columns()?
   }
   rows(){
     return this.orientations[this.index].rows(); //?
   
   } 
   //cellAt
-   cellAt(row, col) {
- 
-   return this.orientations[this.index].blockscellAt(row,col)//?
+cellAt(row, col) {
+  console.log(row,col,"Tetromino row, col Tetromino this.orientindex_____________________________",this.orientations[this.index])
+  console.log(row,col,"row,col")
+
+   return this.orientations[this.index].cellAt(row,col); //blockcellat?
   }
 
 

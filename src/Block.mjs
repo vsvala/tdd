@@ -27,8 +27,9 @@ export class Block {
   columns() {
     return 1;
   }
+
   cellAt(row, col) {
-    return color;
+    return this.color;
   }
 
   isAt(row, col){
