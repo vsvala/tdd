@@ -30,19 +30,20 @@ export class Tetromino {
   orientations;
   index;
   col;
+  rotatingShape
 
   constructor(shape, orientationCount, index = 0) {
     //console.log("shapewwwwwwwwwwwwwww",shape)
     this.shape = shape;
     this.orientationCount = orientationCount;
     this.index = index;
-    const newshape = new RotatingShape(shape);
+    const rotatingShape = new RotatingShape(shape);
     //console.log("newshape",newshape)
     this.orientations = [
-      newshape,
-      newshape.rotateRight(),
-      newshape.rotateRight().rotateRight(),
-      newshape.rotateRight().rotateRight().rotateRight(),
+      rotatingShape,
+      rotatingShape.rotateRight(),
+      rotatingShape.rotateRight().rotateRight(),
+      rotatingShape.rotateRight().rotateRight().rotateRight(),
     ].slice(0, orientationCount);
   }
 
@@ -70,22 +71,27 @@ export class Tetromino {
     return this.orientations[this.index].toString();
   }
 
-
+//ei atida toimia
   columns(){
-  console.log("tetrcol",this.orientations[this.index])
+  //console.log("tetrcmino columns",this.orientations[this.index].columns)
     return this.orientations[this.index].columns() // columns()?
   }
   rows(){
+   // console.log("tetrcmino rows",this.orientations[this.index].rows())
     return this.orientations[this.index].rows(); //?
   
   } 
   //cellAt
 cellAt(row, col) {
-  console.log(row,col,"Tetromino row, col Tetromino this.orientindex_____________________________",this.orientations[this.index])
-  console.log(row,col,"row,col")
-
-   return this.orientations[this.index].cellAt(row,col); //blockcellat?
+  //console.log(row,col,"Tetromino row, col Tetromino this.orientindex_____________________________",this.orientations[this.index])
+       
+      if(row >= 0
+        && row <  this.rows()
+        && col >= 0
+        && col< this.columns())
+        { 
+  return this.orientations[this.index].cellAt(row,col); //blockcellat?
   }
-
-
+return "."
+}
 }

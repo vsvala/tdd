@@ -68,11 +68,8 @@ export class RotatingShape {
   }
 
   cellAt(row, col){
-    console.log("rotating Shape cellAT row,col",row,col)
-
-    console.log("this.blockbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",this.blocks[0][1])
-    console.log("this.blockbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",this.blocks[row][col])
-
+    //console.log("rotating Shape cellAT row,col",row,col)
+    //console.log("this.blockbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",this.blocks[row][col])
     return this.blocks[row][col]
   }
 

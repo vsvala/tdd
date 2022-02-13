@@ -30,8 +30,15 @@ export class Block {
   }
 
   cellAt(row, col) {
+    // if(row >=0
+    //   && row<this.rows()
+    //   && col >=0
+    //   && col==this.columns()){
     return this.color;
   }
+  // else{
+  //   return "."
+  // }
 
   isAt(row, col){
     return row==this.row && col==this.col
