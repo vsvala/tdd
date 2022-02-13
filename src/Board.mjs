@@ -9,12 +9,11 @@ export class Board {
   fallingBlockRow;
   fallingBlockCol;
   EMPTY = ".";
-  //board;
 
   constructor(width, height) {
     this.width = width;
     this.height = height;
-    this.board = this.getEmptyBoard(width, height); //alustaa tyhjän laudanthi
+    this.board = this.getEmptyBoard(width, height); //alustaa tyhjän laudan
 
   }
 
@@ -28,7 +27,7 @@ export class Board {
     for (let i = 0; i < this.height; i++) {
       for (let j = 0; j < this.width; j++) {
       //console.log("i,j", i,j)
-        s += this.cellAt(i, j);  //getCellAt
+        s += this.cellAt(i, j);
       }
       s += "\n";
     }
@@ -42,7 +41,7 @@ export class Board {
       throw new Error( "already falling");
     }
     this.startFalling(block);
-    console.log("fallingbloc", block)
+    console.log("startfallling", block)
   }
 
   startFalling(block) {
@@ -53,41 +52,24 @@ export class Board {
     const center = Math.floor((this.width/2)-(block.columns()/2))
     this.fallingBlockCol = center
     //console.log( "center", this.fallingBlockCol)
-
   }
 
 
   tick() {
 
-    //this.fallingBlock !== undefined &&
-  //const nextRow=this.fallingBlockRow +1;
-    //if(this.isInsideBoardLimits(nextRow) && this.isTileEmpty(nextRow, this.fallingBlockCol)){
-    //this.fallingBlockRow=nextRow;}
-    // if (this.fallingHitsAnotherBlock()) {
-    //   this.stopFalling();
-    // }  
-  // if ( this.fallingHitsBottom()) {
-  //  this.stopFalling();
-  // }
-
-
   if (this.block.constructor && this.block.constructor.name=="Block"){
 
   if(this.hasFalling() && this.fallingBlockRow===this.height-1 || this.board[this.fallingBlockRow+1][this.fallingBlockCol] != this.EMPTY){
-
-
-   // console.log(this.fallingBlockRow,this.fallingBlockCol,this.fallingBlock.cellAt(),"stopping___________________________________________________________________________________________________________")
-             this.board[this.fallingBlockRow][this.fallingBlockCol] = this.fallingBlock.cellAt();
-           //  console.log("board",this.board)
-            // ////this.fallingBlockRow=0;
-            this.falling=null        
+    this.stopFalling();
+  // this.board[this.fallingBlockRow][this.fallingBlockCol] = this.fallingBlock.cellAt();
+  //  this.falling=null    
+          // ////this.fallingBlockRow=0;    
         }
  else {   
      console.log("tick falling one)")
      this.FallOneRow();
   }
   }
-
   if (this.block.constructor && this.block.constructor.name=="Tetromino"){
 
     if(this.hasFalling() && this.fallingHitsBottom()  || this.fallingHitsAnotherBlock()){ //&& this.fallingBlockRow===this.height-2
@@ -104,7 +86,7 @@ export class Board {
 }
 
 
-  stopFalling() {
+stopFalling() {
    // console.log(this.fallingBlock,"fSTTTTTTTTTTTTTTTTTTTTTTTTTTTTTOOOOOOOOOOPPPaaaaaaaaaaaaaallllling BLOCK BLOCK")
    const newBoard= this.getEmptyBoard(this.height,this.width)//new Board(this.height,this.width) //
    //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>,",this.fallingBlock.rows(),this.fallingBlock.columns());
@@ -114,8 +96,8 @@ export class Board {
       }
    } 
  //  console.log("boaraaaaaaad", newBoard)
-this.board=newBoard 
-this.falling = null;
+  this.board=newBoard 
+  this.falling = null;
     }
 
 //BOOLEAN
@@ -164,14 +146,14 @@ this.falling = null;
     }
 
 
-  cellAt(row, col) {
+cellAt(row, col) {
  if(this.hasFalling){
     const cell = this.fallingCellAt(row,col)//HAKEE PISTEEN TAI MERKIN
     if (cell != this.EMPTY){   
      return cell;  
-  }
-} return this.board[row][col];  //PALAUTAA LAUDAN JOS EI TIPU/STOPATTU
-  }
+    }
+  } return this.board[row][col];  //PALAUTAA LAUDAN JOS EI TIPU/STOPATTU
+}
 
 //PAlauttaa piteen tai merkin
   fallingCellAt(row, col) {
@@ -179,11 +161,6 @@ this.falling = null;
     const tetrominoRow = row-this.fallingBlockRow
     const tetrominoCol = col-this.fallingBlockCol
     if (this.falling ){
-    //   && tetrominoRow >= 0
-    //   && tetrominoRow <  this.fallingBlock.rows()
-    //   && tetrominoCol >= 0
-    //   && tetrominoCol < this.fallingBlock.columns()
-    //   ){
     if (this.fallingBlock.constructor.name=="Block" && row==this.fallingBlockRow && col==this.fallingBlockCol){
     // console.log(this.fallingBlockRow, col,"block????????????????????????????????????????????????????????????????????",this.fallingBlock)
      return this.fallingBlock.cellAt(this.fallingBlockRow && this.fallingBlockCol) //X,Y tms..
