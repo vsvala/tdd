@@ -1,14 +1,13 @@
+import { shapeToString } from "./shapes.mjs";
 export class Block {
   color;
   row;
   col;
- 
 
   constructor(color) {
     this.color = color;
     this.row = 0;
     this.col = 0;
- 
   }
   getColor() {
     return this.color;
@@ -29,23 +28,29 @@ export class Block {
     return 1;
   }
 
+  width() {
+    return 1;
+  }
+
+  height() {
+    return 1;
+  }
+
+
   cellAt(row, col) {
-    // if(row >=0
-    //   && row<this.rows()
-    //   && col >=0
-    //   && col==this.columns()){
-    return this.color;
+    if (row === 0 && col === 0) {
+      return this.color;
   }
-  // else{
-  //   return "."
-  // }
-
-  isAt(row, col){
-    return row==this.row && col==this.col
+  }
+  isAt(row, col) {
+    return row == this.row && col == this.col;
   }
 
+  moveLeft() {
 
-  getBlockCoordinates(){
-    return [{ x:0, y:0}]
+  }
+
+  toString() {
+    return shapeToString(this);
   }
 }

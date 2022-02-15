@@ -1,10 +1,11 @@
+
 export class RotatingShape {
-  blocks;
+  #shape;
   size;
 
   constructor(shape) {
     if (typeof shape === "string") {
-      this.blocks = shape.split("\n").map((row) => row.trim().split(""));
+      this.#shape = shape.split("\n").map((row) => row.trim().split(""));
 
       const row = shape.split("\n");
 
@@ -16,20 +17,13 @@ export class RotatingShape {
       //console.log("trimmed",rows.map((row)=> row.trim().split("")));
       // this.shape = shape.split('\n').map((row) => row.trim().split(""));
     } else {
-      this.blocks = shape;
+      this.#shape = shape;
     }
   }
 
-  toString() {
-    // console.log("blocks", this.blocks)
-    const rows = this.blocks.map((row) => row.join(""));
-    // console.log("joined\n",rows.join("\n")+"\n")
-
-    return rows.join("\n") + "\n";
-  }
 
   rotateRight() {
-    const size = this.blocks.length;
+    const size = this.#shape.length;
     //console.log("size is",size)
     const createRow = () => Array.from(new Array(size), () => "-");
     const rotatedShape = Array.from(new Array(size), createRow);
@@ -48,7 +42,7 @@ export class RotatingShape {
       rotatedShape[2][0]=this.blocks[2][2]; */
     for (let row = 0; row < size; row++) {
       for (let col = 0; col < size; col++) {
-        rotatedShape[col][size - 1 - row] = this.blocks[row][col];
+        rotatedShape[col][size - 1 - row] = this.#shape[row][col];
       }
     }
     //console.log("rotated after",rotatedShape)
@@ -59,23 +53,32 @@ export class RotatingShape {
     return this.rotateRight().rotateRight().rotateRight();
   }
 
-  rows(){
-  return this.blocks.length;
-}
-
-  columns(){
-    return this.blocks[0].length;
+  rows() {
+    return this.#shape.length;
   }
 
-  cellAt(row, col){
+  columns() {
+    return this.#shape[0].length;
+  }
+  width() {
+    return this.#shape[0].length;
+  }
+
+  height() {
+    return this.#shape.length;
+  }
+
+
+  cellAt(row, col) {
     //console.log("rotating Shape cellAT row,col",row,col)
     //console.log("this.blockbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",this.blocks[row][col])
-    return this.blocks[row][col]
+    return this.#shape[row][col];
   }
 
-  getblockCoordinates() {
-    return this.shape.flatmap((row, y) => row.flatmap((tile, x) => tile=='.' ? [] : [{x,y}]))
+  toString() {
+    // console.log("blocks", this.blocks)
+    const rows = this.#shape.map((row) => row.join(""));
+  // console.log("joined\n",rows.join("\n")+"\n")
+    return rows.join("\n") + "\n";
+  }
 }
-
-}
-
