@@ -30,7 +30,7 @@ export class Tetromino {
   orientations;
   index;
   col;
-  row=0;
+  row = 0;
   rotatingShape;
 
   constructor(shape, orientationCount, index = 0) {
@@ -92,12 +92,10 @@ export class Tetromino {
   cellAt(row, col) {
     //console.log(row,col,"Tetromino row, col Tetromino this.orientindex_____________________________",this.orientations[this.index])
 
-   // if (row >= 0 && row < this.rows() && col >= 0 && col < this.columns()) {
-      return this.orientations[this.index].cellAt(row, col); //blockcellat?
-   // }
-   // return ".";
+    // if (row >= 0 && row < this.rows() && col >= 0 && col < this.columns()) {
+    return this.orientations[this.index].cellAt(row, col); //blockcellat?
+    // }
+    // return ".";
   }
-  moveLeft(){
-
-  }
+  moveLeft() {}
 }

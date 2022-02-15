@@ -1,14 +1,14 @@
 import { Block } from "./Block.mjs";
 import { Tetromino } from "./Tetromino.mjs";
-const EMPTY= "."
+const EMPTY = ".";
 
-class Point{
-row;
-col;
+class Point {
+  row;
+  col;
 
-constructor(row,col) {
-    this.row =row;
-    this.col = col; 
+  constructor(row, col) {
+    this.row = row;
+    this.col = col;
   }
 }
 
@@ -23,20 +23,18 @@ class MovableShape {
     this.#col = col;
   }
 
-
-  startingRowOffset(){
-    const points=[]
-    for (let row = 0; row < this.#shape.rows() ; row++) {
-      for (let col = 0; col <this.#shape.columns(); col++) {
-        const block= this.cellAt(row, col)
-        if(block!==EMPTY){
-          points.push(new Point(row,col))
+  startingRowOffset() {
+    const points = [];
+    for (let row = 0; row < this.#shape.rows(); row++) {
+      for (let col = 0; col < this.#shape.columns(); col++) {
+        const block = this.cellAt(row, col);
+        if (block !== EMPTY) {
+          points.push(new Point(row, col));
         }
       }
     }
-        return points;
-
-}
+    return points;
+  }
 
   rows() {
     return this.#shape.rows;
@@ -45,7 +43,7 @@ class MovableShape {
     return this.#shape.columns;
   }
 
-cellAt(row, col) {
+  cellAt(row, col) {
     if (
       row >= this.#row &&
       row < this.#row + this.#shape.rows() &&
@@ -58,24 +56,22 @@ cellAt(row, col) {
     }
   }
 
-moveDown() {
-    return new MovableShape( this.#shape, this.#row+1, this.#col)
+  moveDown() {
+    return new MovableShape(this.#shape, this.#row + 1, this.#col);
+  }
+  moveLeft() {
+    return new MovableShape(this.#shape, this.#row, this.#col - 1);
+  }
+  moveLeft() {
+    return new MovableShape(this.#shape, this.#row, this.#col + 1);
+  }
 }
-moveLeft() {
-  return new MovableShape(this.#shape, this.#row, this.#col-1)
-}
-moveLeft() {
-  return new MovableShape(this.#shape, this.#row, this.#col+1)
-}
-}
- //26,0
-
-
+//26,0
 
 export class Board {
- #width;
- #height;
- board = [[], []];
+  #width;
+  #height;
+  board = [[], []];
 
   falling; //BOOLEAN
   fallingBlock;
@@ -108,12 +104,15 @@ export class Board {
   }
 
   drop(block) {
-   // this.block = block;
+    // this.block = block;
     if (this.hasFalling()) {
       throw new Error("already falling");
     }
-    this.fallingBlock=new MovableShape(block,0,Math.floor((this.#width - block.columns()) / 2)
-    )
+    this.fallingBlock = new MovableShape(
+      block,
+      0,
+      Math.floor((this.#width - block.columns()) / 2)
+    );
     // this.startFalling(block);
     // console.log("startfallling", block);
   }
@@ -121,15 +120,17 @@ export class Board {
   startFalling(block) {
     this.fallingBlock = block;
     this.falling = true;
-    if (
-      this.block.constructor &&
-      this.block.constructor.name == "Tetromino") {
+    if (this.block.constructor && this.block.constructor.name == "Tetromino") {
       this.fallingBlockRow = this.startingRowOffset(block);
-      console.log("startfalllinrowgsssssssssssssssssssssssssssssssssssssssssssssssssssssssssss", this.fallingBlockRow );
+      console.log(
+        "startfalllinrowgsssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+        this.fallingBlockRow
+      );
       const center = Math.floor(this.width / 2 - block.columns() / 2);
       this.fallingBlockCol = center;
+    } else {
+      this.fallingBlockRow = 0;
     }
-    else{ this.fallingBlockRow = 0;}
     //console.log(this.width,"boardwidth and columns", block.columns() )
     const center = Math.floor(this.width / 2 - block.columns() / 2);
     this.fallingBlockCol = center;
@@ -152,96 +153,93 @@ export class Board {
     //   }
     // }
     // if (this.block.constructor && this.block.constructor.name == "Tetromino") {
-      if (
-        (this.hasFalling() && this.fallingHitsBottom()) ||
-        this.fallingHitsAnotherBlock()
-      ) {
-        //&& this.fallingBlockRow===this.height-2
- // 
-        this.stopFalling();
-      } else {
-        console.log("tick falling one)");
-        this.fallOneRow();
-     // }
+    if (
+      (this.hasFalling() && this.fallingHitsBottom()) ||
+      this.fallingHitsAnotherBlock()
+    ) {
+      //&& this.fallingBlockRow===this.height-2
+      //
+      this.stopFalling();
+    } else {
+      console.log("tick falling one)");
+      this.fallOneRow();
+      // }
     }
   }
-startingRowOffset(block){
-    for (let row = 0; row <this.height+ block.rows() ; row++) {
-      for (let col = 0; col <this.width+ block.columns(); col++) {
-        if(block.cellAt(row, col)){
-          console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",-row)
-         
+  startingRowOffset(block) {
+    for (let row = 0; row < this.height + block.rows(); row++) {
+      for (let col = 0; col < this.width + block.columns(); col++) {
+        if (block.cellAt(row, col)) {
+          console.log(
+            "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+            -row
+          );
+
           return -row;
         }
+      }
+    }
+    throw new Error("empty block: " + block);
   }
-}
-throw new Error("empty block: "+block);
-
-}
   stopFalling() {
     // console.log(this.fallingBlock,"fSTTTTTTTTTTTTTTTTTTTTTTTTTTTTTOOOOOOOOOOPPPaaaaaaaaaaaaaallllling BLOCK BLOCK")
-    onst newBoard = this.getEmptyBoard(this.height, this.width); //new Board(this.height,this.width) //
+    const newBoard = this.getEmptyBoard(this.height, this.width); //new Board(this.height,this.width) //
     //console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>,",this.fallingBlock.rows(),this.fallingBlock.columns());
     for (let row = 0; row < this.height; row++) {
       for (let col = 0; col < this.width; col++) {
-      this.board[row][col] = this.cellAt(row, col);
+        this.board[row][col] = this.cellAt(row, col);
       }
     }
     //  console.log("boaraaaaaaad", newBoard)
     this.board = newBoard;
     //this.falling = null;
-    this.fallingBlock=null;
+    this.fallingBlock = null;
   }
 
-  moveLeft(){
-  
-     fallingBlockCol--
+  moveLeft() {
+    fallingBlockCol--;
   }
   //BOOLEAN
   hasFalling() {
-   this.fallingBlock!=null; //return Boolean(this.falling); //
+    this.fallingBlock != null; //return Boolean(this.falling); //
   }
 
   fallOneRow() {
     this.fallingBlockRow++;
   }
 
- moveLeft() {
-   // this.falling.moveLeft();
-   this.fallingBlockCol--;
+  moveLeft() {
+    // this.falling.moveLeft();
+    this.fallingBlockCol--;
   }
   moveRight() {
     // this.falling.moveRight();
     this.fallingBlockCol++;
-   }
+  }
   moveDown() {
     // this.falling.moveDown();
     this.fallingBlockRow++;
-   }
+  }
 
+  columns() {
+    return this.width;
+  }
 
-
-columns() {
-  return this.width;
-   }
-
-
-rows() {
- return this.height;
- }
+  rows() {
+    return this.height;
+  }
 
   // BOOLEAN
   fallingHitsBottom() {
     for (let row = 0; row < this.fallingBlock.rows(); row++) {
       for (let col = 0; col < this.fallingBlock.columns(); col++) {
         if (this.fallingBlock.cellAt(row, col)) {
-         // if (this.fallingBlockRow + row >= this.height) {
-           if (this.fallingBlockRow  >= this.height) {
-
+          // if (this.fallingBlockRow + row >= this.height) {
+          if (this.fallingBlockRow >= this.height) {
             return true;
           }
         }
-      }+ row+ row+ row
+      }
     }
     return false;
   }
@@ -255,7 +253,7 @@ rows() {
         if (this.fallingBlock.cellAt(row, col)) {
           const boardRow = this.fallingBlockRow + row;
           const boardCol = this.fallingBlockCol + col;
-           console.log( boardRow, boardCol, "cboard roe and col")
+          console.log(boardRow, boardCol, "cboard roe and col");
           // console.log("booooooooooooooooooooooooaaaaaaaaaaaaaaard",this.board)
           if (this.board[boardRow][boardCol] != this.EMPTY) {
             // console.log("törmääääääää_________________________")
@@ -283,12 +281,13 @@ rows() {
     //console.log("this.fallingBlock",this.fallingBlock,"rowmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmms",this.fallingBlock.rows() )
     const tetrominoRow = row - this.fallingBlockRow;
     const tetrominoCol = col - this.fallingBlockCol;
-    if (this.falling
-      && tetrominoRow >=0
-      && tetrominoRow < this.fallingBlock.rows()
-      && tetrominoCol>=0
-      && tetrominoCol<this.fallingBlock.columns()
-      ) {
+    if (
+      this.falling &&
+      tetrominoRow >= 0 &&
+      tetrominoRow < this.fallingBlock.rows() &&
+      tetrominoCol >= 0 &&
+      tetrominoCol < this.fallingBlock.columns()
+    ) {
       // if (
       //   this.fallingBlock.constructor.name == "Block" &&
       //   row == this.fallingBlockRow &&
@@ -304,11 +303,11 @@ rows() {
       //   this.block.constructor &&
       //   this.block.constructor.name == "Tetromino"
       // ) {
-        // console.log("block?????????????????????????????????????????????????????????????????????",this.fallingBlock)
-        return this.fallingBlock.cellAt(tetrominoRow, tetrominoCol); //X,Y tms..
-      } else {
-        return this.EMPTY;
-      }
-   // } else return this.EMPTY;
+      // console.log("block?????????????????????????????????????????????????????????????????????",this.fallingBlock)
+      return this.fallingBlock.cellAt(tetrominoRow, tetrominoCol); //X,Y tms..
+    } else {
+      return this.EMPTY;
+    }
+    // } else return this.EMPTY;
   }
 }

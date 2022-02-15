@@ -1,4 +1,3 @@
-
 export class RotatingShape {
   #shape;
   size;
@@ -20,7 +19,6 @@ export class RotatingShape {
       this.#shape = shape;
     }
   }
-
 
   rotateRight() {
     const size = this.#shape.length;
@@ -68,7 +66,6 @@ export class RotatingShape {
     return this.#shape.length;
   }
 
-
   cellAt(row, col) {
     //console.log("rotating Shape cellAT row,col",row,col)
     //console.log("this.blockbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",this.blocks[row][col])
@@ -78,7 +75,7 @@ export class RotatingShape {
   toString() {
     // console.log("blocks", this.blocks)
     const rows = this.#shape.map((row) => row.join(""));
-  // console.log("joined\n",rows.join("\n")+"\n")
+    // console.log("joined\n",rows.join("\n")+"\n")
     return rows.join("\n") + "\n";
   }
 }

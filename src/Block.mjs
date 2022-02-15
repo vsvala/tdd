@@ -36,19 +36,16 @@ export class Block {
     return 1;
   }
 
-
   cellAt(row, col) {
     if (row === 0 && col === 0) {
       return this.color;
-  }
+    }
   }
   isAt(row, col) {
     return row == this.row && col == this.col;
   }
 
-  moveLeft() {
-
-  }
+  moveLeft() {}
 
   toString() {
     return shapeToString(this);
