@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { Board } from "../src/Board.mjs";
+import { Board } from "../src/Bhsdjsho.mjs";
 import { Tetromino } from "../src/Tetromino.mjs";
 
 const T_SHAPE = new Tetromino(
@@ -11,12 +11,6 @@ const T_SHAPE = new Tetromino(
   ..........`
 );
 
-// - a falling tetromino can be moved left
-// - a falling tetromino can be moved right
-// - a falling tetromino can be moved down
-// - it cannot be moved left beyond the board
-// - it cannot be moved right beyond the board
-// - it cannot be moved down beyond the board (will stop falling)
 // - it cannot be moved left through other blocks
 // - it cannot be moved right through other blocks
 // - it cannot be moved down through other blocks (will stop falling)
@@ -40,8 +34,8 @@ describe("Moving_tetrominoes", () => {
     );
   });
 
-  xit(" a falling tetromino can be moved left", () => {
-    board.moveLeft();
+  xit(" a falling tetromino can be moved right", () => {
+    board.moveRight();
 
     expect(board.toString()).to.equalShape(
       `.....X....
@@ -53,8 +47,8 @@ describe("Moving_tetrominoes", () => {
     );
   });
 
-  xit(" a falling tetromino can be moved right", () => {
-    board.moveRight();
+  xit(" a falling tetromino can be moved left", () => {
+    board.moveLeft();
 
     expect(board.toString()).to.equalShape(
       `...X......
@@ -65,6 +59,7 @@ describe("Moving_tetrominoes", () => {
          ..........`
     );
   });
+
   xit(" a falling tetromino can be moved down", () => {
     board.moveDown();
 
@@ -78,33 +73,80 @@ describe("Moving_tetrominoes", () => {
     );
   });
 
-  xit("stop when they hit the bottom", () => {
-    board.drop(Tetromino.T_SHAPE);
-    fallToBottom(board);
+  xit("it cannot be moved left beyond the board", () => {
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
 
     expect(board.toString()).to.equalShape(
       `..........
-       ..........
-       ..........
-       ..........
-       ....T.....
-       ...TTT....`
+          .X........
+          XXX.......
+          .X........
+          ..........
+          ..........`
     );
   });
-
-  xit("stop when they land on another block", () => {
-    board.drop(Tetromino.T_SHAPE);
-    fallToBottom(board);
-    board.drop(Tetromino.T_SHAPE);
-    fallToBottom(board);
+  xit("it cannot be moved right beyond the board", () => {
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
 
     expect(board.toString()).to.equalShape(
       `..........
-       ..........
-       ....T.....
-       ...TTT....
-       ....T.....
-       ...TTT....`
+          ........X.
+          .......XXX
+          ........X.
+          ..........
+          ..........`
     );
   });
+
+  xit("it cannot be moved down beyond the board, will stop falling", () => {
+    board.moveDown();
+    board.moveDown();
+    board.moveDown();
+    board.moveDown();
+
+    expect(board.toString()).to.equalShape(
+      `..........
+          ..........
+          ..........
+          ....X.....
+          ...XXX....
+          ....X.....`
+    );
+  });
+
+  // xit("stop when they hit the bottom", () => {
+  //   board.drop(Tetromino.T_SHAPE);
+  //   fallToBottom(board);
+
+  //   expect(board.toString()).to.equalShape(
+  //     `..........
+  //      ..........
+  //      ..........
+  //      ..........
+  //      ....T.....
+  //      ...TTT....`
+  //   );
+  // });
+
+  // xit("stop when they land on another block", () => {
+  //   board.drop(Tetromino.T_SHAPE);
+  //   fallToBottom(board);
+  //   board.drop(Tetromino.T_SHAPE);
+  //   fallToBottom(board);
+
+  //   expect(board.toString()).to.equalShape(
+  //     `..........
+  //      ..........
+  //      ....T.....
+  //      ...TTT....
+  //      ....T.....
+  //      ...TTT....`
+  //   );
+  // });
 });

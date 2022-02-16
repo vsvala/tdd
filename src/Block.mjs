@@ -19,7 +19,13 @@ export class Block {
   col() {
     return this.col;
   }
+  width() {
+    return 1;
+  }
 
+  height() {
+    return 1;
+  }
   rows() {
     return 1;
   }
@@ -28,24 +34,11 @@ export class Block {
     return 1;
   }
 
-  width() {
-    return 1;
-  }
-
-  height() {
-    return 1;
-  }
-
-  cellAt(row, col) {
-    if (row === 0 && col === 0) {
+  getBlockAt(row, col) {
+   // if (row === 0 && col === 0) {
       return this.color;
-    }
+  //  }
   }
-  isAt(row, col) {
-    return row == this.row && col == this.col;
-  }
-
-  moveLeft() {}
 
   toString() {
     return shapeToString(this);

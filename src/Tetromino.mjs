@@ -77,9 +77,9 @@ export class Tetromino {
     //console.log("tetrcmino columns",this.orientations[this.index].columns)
     return this.orientations[this.index].columns(); // columns()?
   }
-  row() {
+  rows() {
     // console.log("tetrcmino rows",this.orientations[this.index].rows())
-    return this.orientations[this.index].row(); //?
+    return this.orientations[this.index].rows(); //?
   }
   width() {
     return this.orientations[this.index].width();
@@ -89,11 +89,11 @@ export class Tetromino {
     return this.orientations[this.index].height();
   }
   //cellAt
-  cellAt(row, col) {
+  getBlockAt(row, col) {
     //console.log(row,col,"Tetromino row, col Tetromino this.orientindex_____________________________",this.orientations[this.index])
 
     // if (row >= 0 && row < this.rows() && col >= 0 && col < this.columns()) {
-    return this.orientations[this.index].cellAt(row, col); //blockcellat?
+    return this.orientations[this.index].getBlockAt(row, col); //blockcellat?
     // }
     // return ".";
   }
