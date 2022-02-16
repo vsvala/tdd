@@ -66,7 +66,7 @@ export class RotatingShape {
     return this.#shape.length;
   }
 
- getBlockAt(row, col) {
+  getBlockAt(row, col) {
     //console.log("rotating Shape cellAT row,col",row,col)
     //console.log("this.blockbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",this.blocks[row][col])
     return this.#shape[row][col];

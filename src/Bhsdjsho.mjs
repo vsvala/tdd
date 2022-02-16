@@ -301,7 +301,8 @@ export class Board {
   }
 
   moveLeft() {
-    this.fallingBlock.moveLeft();getc
+    this.fallingBlock.moveLeft();
+    getc;
   }
   moveRight() {
     this.fallingBlock.moveRight();

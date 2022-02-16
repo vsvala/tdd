@@ -35,9 +35,9 @@ export class Block {
   }
 
   getBlockAt(row, col) {
-   // if (row === 0 && col === 0) {
-      return this.color;
-  //  }
+    // if (row === 0 && col === 0) {
+    return this.color;
+    //  }
   }
 
   toString() {
