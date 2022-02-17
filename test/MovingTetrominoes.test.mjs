@@ -66,8 +66,14 @@ describe("Moving_tetrominoes", () => {
     );
   });
 
-  xit("it cannot be moved left beyond the board", () => {
+  it("it cannot be moved left beyond the board", () => {
     board.drop(Tetromino.T_SHAPE);
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
+    board.moveLeft();
     board.moveLeft();
     board.moveLeft();
     board.moveLeft();
@@ -82,12 +88,18 @@ describe("Moving_tetrominoes", () => {
       ..........`
       );   
   });
-  xit("it cannot be moved right beyond the board", () => {
+  it("it cannot be moved right beyond the board", () => {
     board.drop(Tetromino.T_SHAPE);
     board.moveRight();
     board.moveRight();
     board.moveRight();
     board.moveRight();
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+    board.moveRight();
+
 
     expect(board.toString()).to.equalShape(
       `........T.
@@ -99,8 +111,13 @@ describe("Moving_tetrominoes", () => {
     );
   });
 
-  xit("it cannot be moved down beyond the board, will stop falling", () => {
+  it("it cannot be moved down beyond the board, will stop falling", () => {
     board.drop(Tetromino.T_SHAPE);
+    board.moveDown();
+    board.moveDown();
+    board.moveDown();
+    board.moveDown();
+    board.moveDown();
     board.moveDown();
     board.moveDown();
     board.moveDown();

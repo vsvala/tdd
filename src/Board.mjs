@@ -2,30 +2,6 @@ import { Block } from "./Block.mjs";
 import { Tetromino } from "./Tetromino.mjs";
 const EMPTY = ".";
 
-//   cellAt(row, col) {
-//     if (
-//       row >= this.#row &&
-//       row < this.#row + this.#shape.rows() &&
-//       col >= this.#col &&
-//       col < this.#col + this.#shape.columns()
-//     ) {
-//       return this.#shape.blockAt(row - this.#row, col - this.#col);
-//     } else {
-//       return EMPTY;
-//     }
-//   }
-
-//   moveDown() {
-//     return new MovableShape(this.#shape, this.#row + 1, this.#col);
-//   }
-//   moveLeft() {
-//     return new MovableShape(this.#shape, this.#row, this.#col - 1);
-//   }
-//   moveLeft() {
-//     return new MovableShape(this.#shape, this.#row, this.#col + 1);
-//   }
-// }
-//26,0
 
 class Point {
   row;
@@ -36,61 +12,6 @@ class Point {
     this.col = col;
   }
 }
-
-// class MovableShape {
-//   #shape;
-//   #row;
-//   #col;
-
-//   constructor(shape, row, col) {
-//     this.#shape = shape;
-//     this.#row = row;
-//     this.#col = col;
-//   }
-
-//   moveDown() {
-//     return new MovableShape(this.#shape, this.#row + 1, this.#col);
-//   }
-//   moveLeft() {
-//     return new MovableShape(this.#shape, this.#row, this.#col - 1);
-//   }
-//   moveLeft() {
-//     return new MovableShape(this.#shape, this.#row, this.#col + 1);
-//   }
-
-//   rows() {
-//     return this.#row;
-//   }
-//   columns() {
-//     return this.#col;
-//   }
-
-//   nonEmptyBlocks() {
-//     const points = [];
-//     for (let row = this.#row; row < this.#row + this.#shape.height(); row++) {
-//       for (let col = this.#col; col < this.#col + this.#shape.width(); col++) {
-//         const block = this.blockAt(row, col);
-//         if (block !== EMPTY) {
-//           points.push(new Point(row, col));
-//         }
-//       }
-//     }
-//     return points;
-//   }
-
-//   blockAt(row, col) {
-//     if (
-//       row >= this.#row &&
-//       row < this.#row + this.#shape.height() &&
-//       col >= this.#col &&
-//       col < this.#col + this.#shape.width()
-//     ) {
-//       return this.#shape.blockAt(row - this.#row, col - this.#col);
-//     } else {
-//       return EMPTY;
-//     }
-//   }
-// }
 
 export class Board {
   boardWidth;
@@ -145,7 +66,8 @@ export class Board {
     ) {
       this.fallingBlockRow = 0;
       this.fallingBlockCol = 1;
-    } else {
+    } 
+    else {
       this.fallingBlockRow = 0;
 
       const center = Math.floor(
@@ -163,15 +85,6 @@ export class Board {
         "cStart col",
         this.fallingBlockCol
       );
-
-      // this.fallingBlock = new MovableShape(this.fallingBlock, 0, center)
-
-      //   "START this.fallingBlockRow,this.fallingBlockCol,__________________________________________________________________________________________________"
-      // );
-
-      //  }
-      //console.log(this.width,"boardwidth and columns", block.columns() )
-      // const center =  Math.floor((this.width - this.fallingBlock.columns()) / 2);
     }
   }
 
@@ -217,17 +130,9 @@ export class Board {
       }
     } ///tetromino
     else {
+      this.moveDown();
       // console.log("TIIIIIIIIIIIIIIIIIIIIIIIIIIIICC         TETROMINO")
-      if (
-        (this.hasFalling() && this.fallingHitsBottom()) ||
-        this.fallingHitsAnotherBlock()
-      ) {
-        this.stopFalling();
-        //this.falling = null;
-      } else {
-        // console.log("tick falling one)");
-        this.moveDown();
-      }
+
     }
   }
 
@@ -251,19 +156,47 @@ export class Board {
   }
 
   moveLeft() {
+    console.log("moves right vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
+    if (
+      (this.hasFalling() && this.fallingHitsBoard()) ||
+      this.fallingHitsAnotherBlock()
+    ) {
+      this.stopFalling();
+    } else {
+
+    // console.log("moves rightvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv")
     this.fallingBlockCol--;
+  }
   }
   moveRight() {
     console.log("moves right vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv");
-    //f(canMoveLeft()){
+    if (
+      (this.hasFalling() && this.fallingHitsBoard()) ||
+      this.fallingHitsAnotherBlock()
+    ) {
+      this.stopFalling();
+    } else {
+
+    // console.log("moves rightvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv")
     this.fallingBlockCol++;
-    //}
+
   }
+} 
   moveDown() {
+    if (
+      (this.hasFalling() && this.fallingHitsBottom()) ||
+      this.fallingHitsAnotherBlock()
+    ) {
+      this.stopFalling();
+      //this.falling = null;
+    } else {
+      // console.log("tick falling one)");
+     // this.moveDown();
     // console.log("moves down vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv")
     this.fallingBlockRow++;
     //this.#fallingBlock.moveDown()
   }
+}
 
   columns() {
     return this.boarWidth;
@@ -272,6 +205,29 @@ export class Board {
   rows() {
     return this.boardHeight;
   }
+
+
+
+    // BOOLEAN
+    fallingHitsBoard() {
+      for (let row = 0; row < this.fallingBlock.rows(); row++) {
+        for (let col = 0; col < this.fallingBlock.columns(); col++) {
+          if (this.fallingBlock.getBlockAt(row, col)) {
+            if (this.fallingBlockRow + row >= this.boardHeight) {
+              return true;}
+              if (this.fallingBlockCol + col+1 >= this.boardWidth) {
+                return true;
+              }
+              if (this.fallingBlockCol+col-1< 0) {
+                return true;
+              }
+          
+          }
+        }
+      }
+      return false;
+    }
+
 
   // BOOLEAN
   fallingHitsBottom() {
@@ -283,6 +239,7 @@ export class Board {
             console.log(
               "hits BOTTOMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
             );
+         
             return true;
           }
         }
