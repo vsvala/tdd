@@ -88,29 +88,6 @@ export class Board {
     }
   }
 
-  // startingRowOffset() {
-  //   const points = [];
-  //   for (let row = 0; row < this.fallingBlock.rows(); row++) {
-  //     for (let col = 0; col < this.fallingBlock.columns(); col++) {
-  //       // const block=this.cellAt(row, col)
-  //       //  if(block != this.EMPTY){
-  //       //   points.push(new Point(row,col))
-  //       if (this.cellAt(row, col)) {
-  //         console.log(
-  //           "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
-  //           row
-  //         );
-  //         if (row >= 1) {
-  //           return row - 1;
-  //         } else {
-  //           return 0;
-  //         }
-  //       }
-  //     }
-  //   }
-  //   throw new Error("empty block: " + this.fallingBlock);
-  // }
-
   tick() {
     if (
       this.fallingBlock.constructor &&
@@ -260,7 +237,7 @@ export class Board {
           const boardCol = this.fallingBlockCol + col;
           //  console.log(boardRow, boardCol, "is boarrow empty");
           // console.log("booooooooooooooooooooooooaaaaaaaaaaaaaaard",this.board)
-          if (this.board[boardRow][boardCol] != this.EMPTY) {
+          if (this.board[boardRow][boardCol+1] != this.EMPTY||this.board[boardRow][boardCol-1] != this.EMPTY) { //cannot move right/left throuht other block
             //
             // console.log("törmääääääää_________________________")
             return true;
@@ -299,4 +276,53 @@ export class Board {
       return this.EMPTY;
     }
   }
+
+
+    // startingRowOffset() {
+  //   const points = [];
+  //   for (let row = 0; row < this.fallingBlock.rows(); row++) {
+  //     for (let col = 0; col < this.fallingBlock.columns(); col++) {
+  //       // const block=this.cellAt(row, col)
+  //       //  if(block != this.EMPTY){
+  //       //   points.push(new Point(row,col))
+  //       if (this.cellAt(row, col)) {
+  //         console.log(
+  //           "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+  //           row
+  //         );
+  //         if (row >= 1) {
+  //           return row - 1;
+  //         } else {
+  //           return 0;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   throw new Error("empty block: " + this.fallingBlock);
+  // }
 }
+
+
+
+  // startingRowOffset() {
+  //   const points = [];
+  //   for (let row = 0; row < this.fallingBlock.rows(); row++) {
+  //     for (let col = 0; col < this.fallingBlock.columns(); col++) {
+  //       // const block=this.cellAt(row, col)
+  //       //  if(block != this.EMPTY){
+  //       //   points.push(new Point(row,col))
+  //       if (this.cellAt(row, col)) {
+  //         console.log(
+  //           "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr",
+  //           row
+  //         );
+  //         if (row >= 1) {
+  //           return row - 1;
+  //         } else {
+  //           return 0;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   throw new Error("empty block: " + this.fallingBlock);
+  // }
